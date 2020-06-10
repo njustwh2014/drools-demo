@@ -1,0 +1,25 @@
+package rules
+
+import cn.edu.seu.wh.drools.simple.demo.entity.Message;
+
+
+global java.util.List list
+
+rule "Hello World V2"
+    dialect "mvel"
+    salience 2d
+    when
+        m:Message(status==Message.HELLO,msg:message)
+    then
+        System.out.println("wanghuan:"+msg);
+        list.add(m);
+        modify(m){message="Goodbye cruel world!",status=Message.GOODBYE};
+end
+
+rule "Good Bye V2"
+    dialect "java"
+    when
+        Message(status==Message.GOODBYE,msg:message)
+    then
+        System.out.println("wanghuan:"+msg);
+end
